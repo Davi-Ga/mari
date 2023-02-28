@@ -7,9 +7,7 @@ language = 'pt-BR'
 
 rec = sr.Recognizer()
 audio_queue = Queue()
-
 def recognize_worker():
-    
     errors_list = [
     "MARI could not understand audio",
     "MARI asked you to repeat",
@@ -21,7 +19,7 @@ def recognize_worker():
         if audio is None:
             break
         try:
-            inpt=rec.recognize_google(audio,language=language)
+            inpt=rec.recognize_google(audio,language=language,show_all=False,with_confidence=True)
             audio_queue.task_done()
             return "{}".format(inpt)
             #print("MARI thinks you said: " + rec.recognize_google(audio,language=language))
@@ -29,11 +27,9 @@ def recognize_worker():
         except sr.UnknownValueError:
             return choice(errors_list)
         except sr.RequestError as e:
-            return ("Could not request results from MARI service; {0}").format(e)
+            return ("Could not request results from MARI service;- {0}").format(e)
 
-
-
-recognize_thread = Thread(target=recognize_worker)
+recognize_thread=Thread(target=recognize_worker)
 recognize_thread.daemon = True
 recognize_thread.start()
 
