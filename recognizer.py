@@ -13,7 +13,7 @@ def recognize_worker():
         if audio is None:
             break
         try:
-            print("MARI thinks you said " + rec.recognize_google(audio))
+            print("MARI thinks you said: " + rec.recognize_google(audio,language=language))
         
         except sr.UnknownValueError:
             print ("MARI could not understand audio")
@@ -27,7 +27,7 @@ recognize_thread.daemon = True
 recognize_thread.start()
 
 with sr.Microphone() as source:
-    sr.adjust_for_ambient_noise(source)
+    rec.adjust_for_ambient_noise(source)
     try:
         while True:
             audio = rec.listen(source)
