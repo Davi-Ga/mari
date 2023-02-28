@@ -1,19 +1,12 @@
 import speech_recognition as sr
 from queue import Queue
 from threading import Thread
-import pyttsx3
 from random import choice
-
+from speaker import sound_out
 language = 'pt-BR'
 
 rec = sr.Recognizer()
 audio_queue = Queue()
-
-engine=pyttsx3.init()
-
-def speaker(output):
-    engine.say(output)
-    engine.runAndWait()
 
 def recognize_worker():
     
@@ -50,8 +43,8 @@ with sr.Microphone() as source:
         print("MARI is listening...")
         while True:
             audio_queue.put(rec.listen(source))
-            sound=recognize_worker()
-            speaker(sound)
+            response=recognize_worker()
+            sound_out(response)
     except KeyboardInterrupt:
         pass    
 
