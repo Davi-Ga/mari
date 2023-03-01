@@ -3,17 +3,12 @@ from queue import Queue
 from threading import Thread
 from random import choice
 from speaker import sound_out
-from config import conversations,commands
+from config import commands,errors_list
 
 rec = sr.Recognizer()
 audio_queue = Queue()
 def recognize_worker():
-    errors_list = [
-        "MARI não conseguiu te ouvir",
-        "MARI pediu para você repetir",
-        "Desculpe, MARI não entendeu o que você disse",
-        "MARI não entendeu o que você disse, por favor repita",
-    ]
+    
     while True:
         audio=audio_queue.get()
         if audio is None:
@@ -41,9 +36,10 @@ with sr.Microphone() as source:
             response=recognize_worker()
             print("Você disse: {}".format(response))
             
-            mari_response = commands[response]
-            sound_out(mari_response)
-            print("MARI: {}".format(mari_response))
+            sound_out(response)
+            
+            # mari_response = commands[response]
+            # print("MARI: {}".format(mari_response))
             
             
     except KeyboardInterrupt:
