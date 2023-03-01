@@ -3,7 +3,7 @@ from queue import Queue
 from threading import Thread
 from random import choice
 from speaker import sound_out
-from config import commands,errors_list
+from config import *
 
 rec = sr.Recognizer()
 audio_queue = Queue()
@@ -15,7 +15,6 @@ def recognize_worker():
             break
         try:
             inpt=rec.recognize_google(audio,language="pt-BR")
-            audio_queue.task_done()
             return "{}".format(inpt)
         
         except sr.UnknownValueError:
@@ -36,17 +35,24 @@ with sr.Microphone() as source:
             response=recognize_worker()
             print("Você disse: {}".format(response))
             
+            if response in commands:
+                mari_response = commands[response]
+                response=mari_response
+                print("MARI: {}".format(mari_response))
+                
+                if response == "desligando":
+                    sound_out(response)
+                    exit()   
             sound_out(response)
             
-            # mari_response = commands[response]
-            # print("MARI: {}".format(mari_response))
-            
+            audio_queue.task_done()
             
     except KeyboardInterrupt:
-        pass    
-
+        pass
+    
 audio_queue.join()
 audio_queue.put(None)
-recognize_thread.join()
+recognize_thread.join()   
+
 
 
