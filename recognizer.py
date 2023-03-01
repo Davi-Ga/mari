@@ -7,6 +7,7 @@ from config import *
 
 rec = sr.Recognizer()
 audio_queue = Queue()
+
 def recognize_worker():
     
     while True:
@@ -15,12 +16,12 @@ def recognize_worker():
             break
         try:
             inpt=rec.recognize_google(audio,language="pt-BR")
-            return "{}".format(inpt)
+            return f"{inpt}"
         
         except sr.UnknownValueError:
             return choice(errors_list)
         except sr.RequestError as e:
-            return ("Não conseguimos resultados com o serviço da MARI;- {0}").format(e)
+            return f"Não conseguimos resultados com o serviço da MARI;- {e}"
 
 recognize_thread=Thread(target=recognize_worker)
 recognize_thread.daemon = True
