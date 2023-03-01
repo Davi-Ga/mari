@@ -3,7 +3,7 @@ from queue import Queue
 from threading import Thread
 from random import choice
 from speaker import sound_out
-from config import *
+from core import SystemInfo
 
 rec = sr.Recognizer()
 audio_queue = Queue()
@@ -19,7 +19,7 @@ def recognize_worker():
             return f"{inpt}"
         
         except sr.UnknownValueError:
-            return choice(errors_list)
+            return f"{SystemInfo.error_list()}"
         except sr.RequestError as e:
             return f"Não conseguimos resultados com o serviço da MARI;- {e}"
 
@@ -34,16 +34,18 @@ with sr.Microphone() as source:
         while True:
             audio_queue.put(rec.listen(source))
             response=recognize_worker()
-            print("Você disse: {}".format(response))
+            print("{}".format(response))
             
-            if response in commands:
-                mari_response = commands[response]
-                response=mari_response
-                print("MARI: {}".format(mari_response))
+            # if response in commands:
+            #     mari_response = commands[response]
+            #     response=mari_response
+            #     print("MARI: {}".format(mari_response))
                 
-                if response == "desligando":
-                    sound_out(response)
-                    exit()   
+            #     if response == "desligando":
+            #         sound_out(SystemInfo.exit_app())
+            if response == "desligar":
+                sound_out(SystemInfo.exit_app())
+                
             sound_out(response)
             
             audio_queue.task_done()
