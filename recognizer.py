@@ -1,7 +1,6 @@
 import speech_recognition as sr
 from queue import Queue
 from threading import Thread
-from random import choice
 from speaker import sound_out
 from core import SystemInfo
 
@@ -36,15 +35,12 @@ with sr.Microphone() as source:
             response=recognize_worker()
             print("{}".format(response))
             
-            # if response in commands:
-            #     mari_response = commands[response]
-            #     response=mari_response
-            #     print("MARI: {}".format(mari_response))
-                
-            #     if response == "desligando":
-            #         sound_out(SystemInfo.exit_app())
             if response == "desligar":
                 sound_out(SystemInfo.exit_app())
+            
+            if response =="que horas sao" or response=="Que horas são":
+                sound_out(SystemInfo.get_time())
+                break
                 
             sound_out(response)
             
