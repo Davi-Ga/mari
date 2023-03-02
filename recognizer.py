@@ -27,6 +27,7 @@ recognize_thread.daemon = True
 recognize_thread.start()
 
 print("MARI está ouvindo...")
+
 with sr.Microphone() as source:
     rec.adjust_for_ambient_noise(source)
     try:    
