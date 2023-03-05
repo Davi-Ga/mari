@@ -8,16 +8,19 @@ class SystemInfo:
     def exit_app():
         return "Desligando",exit()
     
+    @staticmethod
     def get_time():
         now=datetime.datetime.now()
         answer= f'Agora são {now.hour} horas e {now.minute} minutos'
         return answer
     
+    @staticmethod
     def get_date():
         now=datetime.datetime.now()
         answer= f'Hoje é dia {now.day} de {now.month} de {now.year}'
         return answer
     
+    @staticmethod
     def error_list():
         errors_list = [
             "MARI não conseguiu te ouvir",
