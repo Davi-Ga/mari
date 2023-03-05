@@ -13,6 +13,11 @@ class SystemInfo:
         answer= f'Agora são {now.hour} horas e {now.minute} minutos'
         return answer
     
+    def get_date():
+        now=datetime.datetime.now()
+        answer= f'Hoje é dia {now.day} de {now.month} de {now.year}'
+        return answer
+    
     def error_list():
         errors_list = [
             "MARI não conseguiu te ouvir",
