@@ -37,9 +37,9 @@ with sr.Microphone() as source:
             response=recognize_worker()
             print("{}".format(response))
             
-            if response == "desligar":
-                sound_out(SystemInfo.exit_app())
-            
+            if response is not None:
+                text=response['text']
+                
             if response =="que horas sao" or response=="Que horas são":
                 sound_out(SystemInfo.get_time())
                 break
