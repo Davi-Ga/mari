@@ -9,5 +9,4 @@ engine.setProperty('rate', 160)
 def sound_out(output):
     
     engine.say(output)
-    
     engine.runAndWait()
