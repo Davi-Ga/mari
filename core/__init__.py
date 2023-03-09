@@ -5,8 +5,9 @@ class SystemInfo:
     def __init__():
         pass
     
+    @staticmethod
     def exit_app():
-        return "Desligando",exit()
+        return "Desligando"
     
     @staticmethod
     def get_time():
