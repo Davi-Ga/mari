@@ -31,5 +31,6 @@ class SystemInfo:
             "MARI está com dificuldades para entender o que você disse",
             "MARI está tentando compreender",
             "Por favor repita, MARI não entendeu",
+            "Não entendi, por favor repita",
         ]
         return choice(errors_list)
