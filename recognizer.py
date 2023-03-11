@@ -26,7 +26,9 @@ recognize_thread=Thread(target=recognize_worker)
 recognize_thread.daemon = True
 recognize_thread.start()
 
-print("MARI está ouvindo...")
+inicio="MARI está ouvindo..."
+print(inicio)
+sound_out(inicio)
 
 with sr.Microphone() as source:
     
@@ -37,12 +39,12 @@ with sr.Microphone() as source:
             response=recognize_worker()
             print("{}".format(response))
             
-            if response is not None:
-                text=response['text']
+            # if response is not None:
+            #     text=response['text']
                 
             if response =="que horas sao" or response=="Que horas são":
                 sound_out(SystemInfo.get_time())
-                break
+                pass
                 
             sound_out(response)
             
