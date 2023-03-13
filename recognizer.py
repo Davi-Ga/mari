@@ -6,7 +6,7 @@ from core import SystemInfo
 
 rec = sr.Recognizer()
 audio_queue = Queue()
-aaaa
+
 def recognize_worker():
     
     while True:
